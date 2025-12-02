@@ -21,3 +21,20 @@ type User struct {
 	CreatedAt time.Time          `json:"createdAt" bson:"createdAt"`
 	UpdatedAt time.Time          `json:"updatedAt" bson:"updatedAt"`
 }
+
+type SignupRequestData struct {
+	ID        primitive.ObjectID `json:"id" bson:"_id"`
+	Username  string             `json:"userName" bson:"userName" binding:"required"`
+	Email     string             `json:"email" bson:"email"`
+	Password  string             `json:"password" bson:"password" binding:"required"` // hex encoded password
+	Phone     string             `json:"phone" bson:"phone" binding:"required"`
+	WhatsApp  string             `json:"whatsApp" bson:"whatsApp"`
+	Role      string             `json:"role" bson:"role" binding:"required"` // "student", "admin", "parent", "teacher"
+	CreatedAt time.Time          `json:"createdAt" bson:"createdAt"`
+	UpdatedAt time.Time          `json:"updatedAt" bson:"updatedAt"`
+}
+
+type LoginRequestData struct {
+	Username string `json:"userName" bson:"userName" binding:"required"`
+	Password string `json:"password" bson:"password" binding:"required"`
+}
