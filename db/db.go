@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func ConnectDB(dbUri, dbName string) (*mongo.Client, *mongo.Database, error) {
+func ConnectDB(dbUri, dbName string) (*mongo.Client, error) {
 	//
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -17,15 +17,13 @@ func ConnectDB(dbUri, dbName string) (*mongo.Client, *mongo.Database, error) {
 
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	// Ping
 	if err := client.Ping(ctx, nil); err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	db := client.Database(dbName)
-
-	return client, db, nil
+	return client, nil
 }

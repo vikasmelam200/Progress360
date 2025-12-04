@@ -38,3 +38,6 @@ type LoginRequestData struct {
 	Username string `json:"userName" bson:"userName" binding:"required"`
 	Password string `json:"password" bson:"password" binding:"required"`
 }
+
+type SignupResponseData struct {
+}

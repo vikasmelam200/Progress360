@@ -5,14 +5,29 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/vikasmelam200/Progress360/models"
+	"github.com/vikasmelam200/Progress360/services"
 )
 
+type UserController struct {
+	service services.UserService
+}
+
+func NewUserController(service services.UserService) UserController {
+	return UserController{service}
+}
+
 // Signup Handler with Validation
-func Signup(c *gin.Context) {
-	var request models.SignupRequestData
-	// Bind and validate JSON input
-	if err := c.ShouldBindJSON(&request); err != nil {
+func (uc *UserController) Signup(c *gin.Context) {
+	var requestData models.SignupRequestData
+
+	if err := c.ShouldBindJSON(&requestData); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	//
+	created, err := uc.service.CreateUser(ctx, &body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -22,7 +37,7 @@ func Signup(c *gin.Context) {
 }
 
 // Login Handler
-func Login(c *gin.Context) {
+func (uc *UserController) Login(c *gin.Context) {
 	//
 	var req models.LoginRequestData
 
