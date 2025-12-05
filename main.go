@@ -18,7 +18,8 @@ func main() {
 	dbName := "Progress360"
 	//
 	var ctx context.Context
-	var router *gin.Engine
+	//var router *gin.Engine
+	r := gin.Default()
 	var usersCollection *mongo.Collection
 	var usersController controllers.UserController
 	var usersService services.UserService
@@ -29,11 +30,12 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
+	fmt.Println(r, "hello")
 	//
 	usersService = services.NewUserService(usersCollection, ctx)
 	usersController = controllers.NewUserController(usersService)
 	usersRoutes = routes.NewUserRoute(usersController)
-	usersRoutes.RegisterUserRoutes(router, usersService)
+	usersRoutes.RegisterUserRoutes(r, usersService)
 
+	r.Run(":8080")
 }

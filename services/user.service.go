@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/vikasmelam200/Progress360/models"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -21,7 +22,7 @@ func (us *UserService) InsertUserData(ctx context.Context, requestData *models.S
 	now := time.Now()
 	requestData.CreatedAt = now
 	requestData.UpdatedAt = now
-
+	requestData.ID = primitive.NewObjectID()
 	_, err = us.usersCollection.InsertOne(ctx, requestData)
 	if err != nil {
 		return nil, err

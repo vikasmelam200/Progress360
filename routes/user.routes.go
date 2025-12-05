@@ -3,21 +3,20 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/vikasmelam200/Progress360/controllers"
+	"github.com/vikasmelam200/Progress360/services"
 )
 
-type UserRouteController struct {
+type UserRoutes struct {
 	userRouteController controllers.UserController
 }
 
-func NewUserController(userRouteController controllers.UserController) UserRouteController {
-	return UserRouteController{userRouteController}
+func NewUserRoute(userRouteController controllers.UserController) UserRoutes {
+	return UserRoutes{userRouteController}
 }
 
-func (rc *UserRouteController) RegisterUserRoutes(r *gin.Engine, uc controllers.UserController) {
-	api := r.Group("/api")
-	users := api.Group("/users")
-
+func (rc *UserRoutes) RegisterUserRoutes(r *gin.Engine, uc services.UserService) {
+	users := r.Group("/api/users")
 	users.POST("/signup", rc.userRouteController.Signup)
-	users.POST("login", rc.userRouteController.Login)
+	users.POST("/login", rc.userRouteController.Login)
 
 }

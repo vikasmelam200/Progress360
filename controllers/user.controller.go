@@ -18,6 +18,7 @@ func NewUserController(service services.UserService) UserController {
 
 // Signup Handler with Validation
 func (uc *UserController) Signup(c *gin.Context) {
+	ctx := c.Request.Context()
 	var requestData models.SignupRequestData
 
 	if err := c.ShouldBindJSON(&requestData); err != nil {
@@ -25,7 +26,7 @@ func (uc *UserController) Signup(c *gin.Context) {
 		return
 	}
 	//
-	created, err := uc.service.CreateUser(ctx, &body)
+	_, err := uc.service.InsertUserData(ctx, &requestData)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
