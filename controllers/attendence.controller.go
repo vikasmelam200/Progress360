@@ -1,20 +1,34 @@
 package controllers
 
 import (
-	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"github.com/gin-gonic/gin"
+	"github.com/vikasmelam200/Progress360/services"
 )
 
-type Attendance struct {
-	ID        primitive.ObjectID `json:"id" bson:"_id,omitempty"`
-	StudentID primitive.ObjectID `json:"studentId" bson:"studentId" binding:"required"`
-	ClassID   primitive.ObjectID `json:"classId" bson:"classId" binding:"required"`
-	SubjectID primitive.ObjectID `json:"subjectId" bson:"subjectId,omitempty"`
-	Date      time.Time          `json:"date" bson:"date" binding:"required"`
-	Period    int                `json:"period" bson:"period,omitempty"`
-	IsPresent bool               `json:"isPresent" bson:"isPresent"` // true=present, false=absent
-	Remarks   string             `json:"remarks" bson:"remarks,omitempty"`
-	CreatedAt time.Time          `json:"created_at" bson:"created_at"`
-	UpdatedAt time.Time          `json:"updated_at" bson:"updated_at"`
+type AttendanceController struct {
+	service services.AttendanceService
+}
+
+func NewAttendanceController(service services.AttendanceService) AttendanceController {
+	return AttendanceController{service}
+}
+
+func (ac *AttendanceController) CreatePeriodAttendance(c *gin.Context) {
+
+}
+
+func (ac *AttendanceController) ListPeriodAttendance(c *gin.Context) {
+
+}
+
+func (ac *AttendanceController) GetPeriodAttendanceByID(c *gin.Context) {
+
+}
+
+func (ac *AttendanceController) UpdatePeriodAttendance(c *gin.Context) {
+
+}
+
+func (ac *AttendanceController) DeletePeriodAttendance(c *gin.Context) {
+
 }
