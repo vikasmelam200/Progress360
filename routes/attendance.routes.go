@@ -10,12 +10,12 @@ type AttendanceRoutes struct {
 	attendanceRouteController controllers.AttendanceController
 }
 
-func NewAttendenceRoute(attendanceRouteController controllers.AttendanceController) AttendanceRoutes {
+func NewAttendanceRoute(attendanceRouteController controllers.AttendanceController) AttendanceRoutes {
 	return AttendanceRoutes{attendanceRouteController}
 }
 
-func (rc *AttendanceRoutes) RegisterUserRoutes(r *gin.Engine, uc services.AttendanceService) {
-	attendance := r.Group("/api/attendence")
+func (rc *AttendanceRoutes) RegisterAttendanceRoutes(r *gin.Engine, uc services.AttendanceService) {
+	attendance := r.Group("/api/attendance")
 
 	attendance.POST("/createPeriodAttendance", rc.attendanceRouteController.CreatePeriodAttendance)
 	attendance.GET("/listPeriodAttendance", rc.attendanceRouteController.ListPeriodAttendance)

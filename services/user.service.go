@@ -31,7 +31,7 @@ func (us *UserService) InsertUserData(ctx context.Context, requestData *models.S
 		return nil, errors.New("username have already registered")
 	}
 	requestData.ID = primitive.NewObjectID()
-	_, err = us.usersCollection.InsertOne(ctx, requestData)
+	_, err = us.usersCollection.InsertOne(ctx, &requestData)
 	if err != nil {
 		return nil, err
 	}
