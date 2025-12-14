@@ -19,7 +19,7 @@ func (rc *AttendanceRoutes) RegisterAttendanceRoutes(r *gin.Engine, uc services.
 
 	attendance.POST("/createPeriodAttendance", rc.attendanceRouteController.CreatePeriodAttendance)
 	attendance.POST("/listPeriodAttendance", rc.attendanceRouteController.ListPeriodAttendance)
-	attendance.GET("/getPeriodAttendanceByID", rc.attendanceRouteController.GetPeriodAttendanceByID)
+	attendance.GET("/getPeriodAttendanceByID", rc.attendanceRouteController.GetPeriodAttendanceByClassID)
 	attendance.PUT("/updatePeriodAttendance", rc.attendanceRouteController.UpdatePeriodAttendance)
 	attendance.DELETE("/deletePeriodAttendance", rc.attendanceRouteController.DeletePeriodAttendance)
 

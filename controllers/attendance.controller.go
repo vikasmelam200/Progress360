@@ -63,11 +63,11 @@ func (ac *AttendanceController) ListPeriodAttendance(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"attendence is successfully generated": attendanceList})
+	c.JSON(http.StatusOK, gin.H{"attendence list is successfully generated": attendanceList})
 
 }
 
-func (ac *AttendanceController) GetPeriodAttendanceByID(c *gin.Context) {
+func (ac *AttendanceController) GetPeriodAttendanceByClassID(c *gin.Context) {
 	// idStr := c.Param("id")
 	// id, err := primitive.ObjectIDFromHex(idStr)
 	// if err != nil {
