@@ -35,8 +35,8 @@ type UpdatePeriodAttendanceRequest struct {
 }
 
 type ListPeriodAttendanceRequest struct {
-	StudentID string `json:"student_id" binding:"required"`
-	ClassID   string `json:"class_id"`
+	StudentID string `json:"studentId"`
+	ClassID   string `json:"classId" binding:"required"`
 	Date      string `json:"date"`
-	PeriodNo  int    `json:"period_no"`
+	PeriodNo  int    `json:"periodNo"`
 }

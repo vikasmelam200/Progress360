@@ -50,7 +50,7 @@ func (ac *AttendanceController) ListPeriodAttendance(c *gin.Context) {
 	ctx := c.Request.Context()
 	var err error
 	var requestData *models.ListPeriodAttendanceRequest
-	var attendanceList *models.Attendance
+	var attendanceList []models.Attendance
 
 	if err = c.ShouldBindJSON(&requestData); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -59,7 +59,7 @@ func (ac *AttendanceController) ListPeriodAttendance(c *gin.Context) {
 
 	attendanceList, err = ac.service.ListPeriodAttendanceData(ctx, requestData)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create period attendance"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 

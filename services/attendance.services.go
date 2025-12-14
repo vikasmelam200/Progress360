@@ -54,14 +54,14 @@ func (us *AttendanceService) InsertAttendanceData(ctx context.Context, requestDa
 	return responseData, nil
 }
 
-func (us *AttendanceService) ListPeriodAttendanceData(ctx context.Context, requestData *models.ListPeriodAttendanceRequest) (responseData *models.Attendance, err error) {
+func (us *AttendanceService) ListPeriodAttendanceData(ctx context.Context, requestData *models.ListPeriodAttendanceRequest) (responseData []models.Attendance, err error) {
 	filter := bson.M{}
 
 	cid, err := primitive.ObjectIDFromHex(requestData.ClassID)
 	if err != nil {
 		return nil, err
 	}
-	filter["class_id"] = cid
+	filter["classId"] = cid
 
 	// StudentID filter
 	if requestData.StudentID != "" {
@@ -92,8 +92,7 @@ func (us *AttendanceService) ListPeriodAttendanceData(ctx context.Context, reque
 	}
 	defer cur.Close(context.Background())
 
-	var list []models.Attendance
-	if err := cur.All(ctx, &list); err != nil {
+	if err := cur.All(ctx, &responseData); err != nil {
 		return nil, err
 	}
 
