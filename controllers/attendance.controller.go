@@ -47,52 +47,23 @@ func (ac *AttendanceController) CreatePeriodAttendance(c *gin.Context) {
 }
 
 func (ac *AttendanceController) ListPeriodAttendance(c *gin.Context) {
-	// filter := bson.M{}
+	ctx := c.Request.Context()
+	var err error
+	var requestData *models.ListPeriodAttendanceRequest
+	var attendanceList *models.Attendance
 
-	// if studentIDStr := c.Query("student_id"); studentIDStr != "" {
-	// 	sid, err := primitive.ObjectIDFromHex(studentIDStr)
-	// 	if err != nil {
-	// 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid student_id"})
-	// 		return
-	// 	}
-	// 	filter["student_id"] = sid
-	// }
+	if err = c.ShouldBindJSON(&requestData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-	// if dateStr := c.Query("date"); dateStr != "" {
-	// 	d, err := time.Parse("2006-01-02", dateStr)
-	// 	if err != nil {
-	// 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid date format, use YYYY-MM-DD"})
-	// 		return
-	// 	}
-	// 	start := time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
-	// 	end := start.Add(24 * time.Hour)
-	// 	filter["date"] = bson.M{"$gte": start, "$lt": end}
-	// }
+	attendanceList, err = ac.service.ListPeriodAttendanceData(ctx, requestData)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create period attendance"})
+		return
+	}
 
-	// if periodStr := c.Query("period_no"); periodStr != "" {
-	// 	p, err := strconv.Atoi(periodStr)
-	// 	if err != nil {
-	// 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid period_no"})
-	// 		return
-	// 	}
-	// 	filter["period_no"] = p
-	// }
-
-	// ctx := c.Request.Context()
-	// cur, err := db.PeriodAttendanceCollection.Find(ctx, filter)
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to fetch attendance"})
-	// 	return
-	// }
-	// defer cur.Close(context.Background())
-
-	// var list []models.PeriodAttendance
-	// if err := cur.All(context.Background(), &list); err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to decode attendance"})
-	// 	return
-	// }
-
-	// c.JSON(http.StatusOK, list)
+	c.JSON(http.StatusOK, gin.H{"attendence is successfully generated": attendanceList})
 
 }
 

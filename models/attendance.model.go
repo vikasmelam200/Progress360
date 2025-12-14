@@ -33,3 +33,10 @@ type UpdatePeriodAttendanceRequest struct {
 	IsPresent bool   `json:"isPresent" bson:"isPresent"`
 	Remark    string `json:"remark" binding:"omitempty"`
 }
+
+type ListPeriodAttendanceRequest struct {
+	StudentID string `json:"student_id" binding:"required"`
+	ClassID   string `json:"class_id"`
+	Date      string `json:"date"`
+	PeriodNo  int    `json:"period_no"`
+}
